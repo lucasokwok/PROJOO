@@ -54,6 +54,24 @@ describe("NotificationFactory", () => {
     consoleSpy.mockRestore();
   });
 
+  it("deve criar uma notificacao externa passando pelo adapter e pelo proxy", () => {
+    const consoleSpy = vi.spyOn(console, "log").mockImplementation(() => {});
+
+    const notification = NotificationFactory.create("ext");
+
+    expect(notification).toBeInstanceOf(LoggingProxy);
+
+    const resultado = notification.send("11999999999", "Mensagem externa");
+
+    expect(consoleSpy).toHaveBeenCalledWith(
+      "Entrando no proxy - destinatario: 11999999999; msg: Mensagem externa",
+    );
+    expect(resultado).toContain("EXT_SMS enviado para 11999999999");
+    expect(resultado).toContain("apiKeyExemplo");
+
+    consoleSpy.mockRestore();
+  });
+
   it("deve lançar erro para tipo invalido", () => {
     expect(() => NotificationFactory.create("invalido" as any)).toThrow(
       "Tipo de notificação inválido.",
