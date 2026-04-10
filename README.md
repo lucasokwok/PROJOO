@@ -16,5 +16,7 @@ AULA/
 npm install
 
 npx tsc
+
 npx vitest run
+
 npx vitest
