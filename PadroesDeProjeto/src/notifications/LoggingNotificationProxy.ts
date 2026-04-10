@@ -2,6 +2,17 @@ import { Notification } from "./Notification";
 
 class LoggingProxy implements Notification {
   constructor(private notification: Notification) {}
+
+  public send(destinatario: string, mensagem: string): string {
+    console.log(
+      "Entrando no proxy - destinatario: " +
+        destinatario +
+        "; msg: " +
+        mensagem,
+    );
+
+    return this.notification.send(destinatario, mensagem);
+  }
 }
 
 // class BookSearchProxy implements BookSearchInterface {
