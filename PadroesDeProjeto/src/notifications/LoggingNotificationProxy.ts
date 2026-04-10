@@ -1,6 +1,6 @@
 import { Notification } from "./Notification";
 
-class LoggingProxy implements Notification {
+export class LoggingProxy implements Notification {
   constructor(private notification: Notification) {}
 
   public send(destinatario: string, mensagem: string): string {
