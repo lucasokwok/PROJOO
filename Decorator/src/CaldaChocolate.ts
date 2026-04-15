@@ -4,4 +4,8 @@ export class CaldaChocolate implements Bebida {
   public getPrice(): number {
     return 2.5;
   }
+
+  public getDescription(): string {
+    return "Calda de Chocolate";
+  }
 }
