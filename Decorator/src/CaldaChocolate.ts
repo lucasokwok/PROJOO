@@ -1,11 +1,16 @@
 import { Bebida } from "./Bebida";
+import { BebidaDecorator } from "./BebidaDecorator";
 
-export class CaldaChocolate implements Bebida {
-  public getPrice(): number {
-    return 2.5;
+export class CaldaChocolate extends BebidaDecorator {
+  constructor(pedido: Bebida) {
+    super(pedido);
   }
 
-  public getDescription(): string {
-    return "Calda de Chocolate";
+  getPrice(): number {
+    return super.getPrice() + 2.5;
+  }
+
+  getDescription(): string {
+    return super.getDescription() + ", calda de chocolate";
   }
 }
