@@ -40,6 +40,8 @@ export class PCD extends Subject {
     // aqui a inversão de controle já está aplicada pois as universidades nao ficam consultando pcd's em busca
     // de novos dados, mas sim as universidades se inscrevem e serão notificadas quando os dados dos pcds sao
     // atualizados
+
+    // observa-se que a inversão de controle já tinha sido aplicada anteriormente
     this.notifyObservers();
   }
 }
