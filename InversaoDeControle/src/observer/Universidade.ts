@@ -7,6 +7,8 @@ export class Universidade implements Observer {
   constructor(nome: string) {
     this.nome = nome;
   }
+  // callback
+  // esse é o método de callback chamado pela PCD quando acontece uma atualização
 
   update(subject: unknown): void {
     if (subject instanceof PCD) {

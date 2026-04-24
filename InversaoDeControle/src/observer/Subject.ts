@@ -13,6 +13,7 @@ export class Subject {
 
   notifyObservers(): void {
     for (const observer of this.observers) {
+      // executa callback
       observer.update(this);
     }
   }

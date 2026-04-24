@@ -13,6 +13,7 @@ describe("Padrão Observer aplicado a PCDs", () => {
     const pcd = new PCD("PCD-001", "São José dos Campos");
     const unifesp = new Universidade("UNIFESP");
 
+    // aqui por exemplo a universidade é adicionada a lista de observadores
     pcd.addObserver(unifesp);
 
     pcd.atualizarDados({
