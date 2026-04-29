@@ -1,17 +1,14 @@
-// class PrintVisitor implements Visitor {
-
-//    public void visit(Carro c) {
-//      System.out.println("Visitando um Carro com placa: " + c.getPlaca());
-
-//    }
-
-//    public void visit(Onibus o)  {
-//      System.out.println("Visitando um Onibus com placa: " + o.getPlaca());
-//    }
-
-// }
 import { Visitor } from "../Visitor";
+import { Dashboard } from "../Dashboard";
+import { Texto } from "../Texto";
+import { Topicos } from "../Topicos";
 
 export class ExportHTML implements Visitor {
-  public visit(): void {}
+  public visit(relatorio: Dashboard): void;
+  public visit(relatorio: Texto): void;
+  public visit(relatorio: Topicos): void;
+
+  public visit(relatorio: Dashboard | Texto | Topicos): void {
+    console.log("export em HTML");
+  }
 }
