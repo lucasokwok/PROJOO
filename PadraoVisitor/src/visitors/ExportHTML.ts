@@ -9,6 +9,27 @@ export class ExportHTML implements Visitor {
   public visit(relatorio: Topicos): void;
 
   public visit(relatorio: Dashboard | Texto | Topicos): void {
-    console.log("export em HTML");
+    console.log("Exportando em HTML:");
+
+    if (relatorio instanceof Dashboard) {
+      console.log(`<h1>${relatorio.titulo}</h1>`);
+      console.log(`<p>Tipo de gráfico: ${relatorio.tipoGrafico}</p>`);
+      console.log(
+        `<p>Quantidade de indicadores: ${relatorio.quantidadeIndicadores}</p>`,
+      );
+    }
+
+    if (relatorio instanceof Texto) {
+      console.log(`<h1>${relatorio.titulo}</h1>`);
+      console.log(`<p>Autor: ${relatorio.autor}</p>`);
+      console.log(`<p>Número de linhas: ${relatorio.numeroLinhas}</p>`);
+    }
+
+    if (relatorio instanceof Topicos) {
+      console.log(`<h1>${relatorio.titulo}</h1>`);
+      console.log("<ul>");
+      console.log(`<p>Número de linhas: ${relatorio.qtdtopicos}</p>`);
+      console.log("</ul>");
+    }
   }
 }
