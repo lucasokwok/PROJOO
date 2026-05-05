@@ -36,7 +36,7 @@ Imagine uma classe `BookSearch`, responsável por buscar livros pelo ISBN:
 class Book {
   constructor(
     public isbn: string,
-    public title: string
+    public title: string,
   ) {}
 }
 
@@ -106,7 +106,7 @@ Exemplo:
 class Book {
   constructor(
     public isbn: string,
-    public title: string
+    public title: string,
   ) {}
 }
 
@@ -122,20 +122,18 @@ class BookSearch implements Search {
 }
 
 class BookSearchProxy implements Search {
-  private cache: Map<string, Book> = new Map();
+  private cachedBook: Book | null = null;
 
   constructor(private bookSearch: BookSearch) {}
 
   public getBook(isbn: string): Book {
-    const cachedBook = this.cache.get(isbn);
-
-    if (cachedBook) {
+    if (this.cachedBook && this.cachedBook.isbn === isbn) {
       console.log("Retornando livro do cache...");
-      return cachedBook;
+      return this.cachedBook;
     }
 
     const book = this.bookSearch.getBook(isbn);
-    this.cache.set(isbn, book);
+    this.cachedBook = book;
 
     return book;
   }
@@ -145,11 +143,16 @@ class BookSearchProxy implements Search {
 Uso:
 
 ```ts
-const realSearch = new BookSearch();
-const proxy = new BookSearchProxy(realSearch);
+const search = new BookSearchProxy(new BookSearch());
 
-const book1 = proxy.getBook("978-1234567890");
-const book2 = proxy.getBook("978-1234567890");
+const book1 = search.getBook("123");
+console.log(book1.title);
+
+const book2 = search.getBook("123");
+console.log(book2.title);
+
+const book3 = search.getBook("456");
+console.log(book3.title);
 ```
 
 Saída esperada:
@@ -230,7 +233,7 @@ Cliente       = código que pesquisa livros
 class Book {
   constructor(
     public isbn: string,
-    public title: string
+    public title: string,
   ) {}
 }
 
@@ -496,7 +499,7 @@ Verificar se o usuário tem permissão antes de acessar o objeto real.
 class SecureSearchProxy implements Search {
   constructor(
     private realSearch: Search,
-    private userRole: string
+    private userRole: string,
   ) {}
 
   public getBook(isbn: string): Book {
@@ -599,7 +602,7 @@ Uso:
 
 ```ts
 const notification: Notification = new LoggingNotificationProxy(
-  new EmailNotification()
+  new EmailNotification(),
 );
 
 const result = notification.send("teste@email.com", "Olá");
@@ -617,12 +620,12 @@ Proxy e Decorator são parecidos porque ambos envolvem outro objeto.
 
 Mas a intenção é diferente.
 
-| Proxy | Decorator |
-|---|---|
-| Controla o acesso ao objeto real | Adiciona responsabilidades ao objeto |
-| Pode fazer cache, segurança, log, validação | Pode adicionar comportamento combinável |
+| Proxy                                               | Decorator                                     |
+| --------------------------------------------------- | --------------------------------------------- |
+| Controla o acesso ao objeto real                    | Adiciona responsabilidades ao objeto          |
+| Pode fazer cache, segurança, log, validação         | Pode adicionar comportamento combinável       |
 | Normalmente representa o objeto real para o cliente | Normalmente compõe funcionalidades em camadas |
-| Foco em intermediação e controle | Foco em extensão dinâmica |
+| Foco em intermediação e controle                    | Foco em extensão dinâmica                     |
 
 Exemplo de Proxy:
 
@@ -640,10 +643,10 @@ Bebida base + leite + chantilly + canela.
 
 ## 17. Comparação entre Proxy e Adapter
 
-| Proxy | Adapter |
-|---|---|
-| Tem a mesma interface do objeto real | Converte uma interface incompatível em outra |
-| Controla acesso | Adapta chamadas |
+| Proxy                                     | Adapter                                                       |
+| ----------------------------------------- | ------------------------------------------------------------- |
+| Tem a mesma interface do objeto real      | Converte uma interface incompatível em outra                  |
+| Controla acesso                           | Adapta chamadas                                               |
 | Cliente poderia usar objeto real ou proxy | Cliente não consegue usar diretamente o adaptee sem adaptação |
 
 Exemplo de Proxy:
