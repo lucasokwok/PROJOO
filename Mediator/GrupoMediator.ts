@@ -2,21 +2,21 @@ import { Mediator } from "./Mediator";
 import { Usuario } from "./Usuario";
 
 export class GrupoMediator implements Mediator {
-  private users: Usuario[] = [];
+  private usuarios: Usuario[] = [];
 
-  public adduser(user: Usuario): void {
-    this.users.push(user);
+  public addUsuario(user: Usuario): void {
+    this.usuarios.push(user);
     user.setMediator(this);
 
     console.log(`${user.getNome()} entrou no grupo.`);
   }
 
-  public enviarMensagem(remetente: Usuario, mensagem: string): void {
-    console.log(`${remetente.getNome()} enviou: ${mensagem}`);
+  public enviarMensagem(user: Usuario, msg: string): void {
+    console.log(`${user.getNome()} enviou: ${msg}`);
 
-    for (const user of this.users) {
-      if (user !== remetente) {
-        user.receberMensagem(remetente, mensagem);
+    for (const usuario of this.usuarios) {
+      if (usuario !== user) {
+        usuario.receberMensagem(user, msg);
       }
     }
   }
