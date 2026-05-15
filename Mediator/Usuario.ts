@@ -1,10 +1,10 @@
 import { Mediator } from "./Mediator";
 
 export abstract class Usuario {
-  private mediator!: Mediator;
-  // "!" eh para o typescript nao reclamar de nao inicializar a var
+  protected mediator!: Mediator;
+  // "!" eh para o TypeScript nao reclamar de nao inicializar a var
 
-  constructor(private nome: string) {}
+  constructor(protected nome: string) {}
 
   public setMediator(mediator: Mediator): void {
     this.mediator = mediator;
