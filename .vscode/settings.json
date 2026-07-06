@@ -1,0 +1,12 @@
+{
+  "markdown-pdf.executablePath": "/usr/bin/chromium-browser",
+  "markdown-pdf.styles": [".vscode/markdown-pdf-papel-azul.css"],
+  "markdown-pdf.includeDefaultStyles": true,
+  "markdown-pdf.printBackground": true,
+  "markdown-pdf.type": ["pdf"],
+  "markdown-pdf.margin.top": "0.7cm",
+  "markdown-pdf.margin.bottom": "0.7cm",
+  "markdown-pdf.margin.left": "0.7cm",
+  "markdown-pdf.margin.right": "0.7cm",
+  "markdown-pdf.format": "A4"
+}
